@@ -1,7 +1,9 @@
 package com.apap.tugas1.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,18 +32,53 @@ public class InstansiModel implements Serializable{
 
     @NotNull
     @Size(max=255)
-    @Column(name="nama_instansi")
-    private String namaInstansi;
+    @Column(name="nama")
+    private String nama;
 
     @NotNull
     @Size(max=255)
     @Column(name="deskripsi")
     private String deskripsi;
 
+    // @OneToMany(mappedBy="instansi", fetch=FetchType.LAZY, cascade=CascadeType.REMOVE)
+    // private List<PegawaiModel> pegawai;
+
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_provinsi", referencedColumnName="id_provinsi", nullable=false)
+    @JoinColumn(name="id_provinsi", referencedColumnName="id", nullable=false)
     @OnDelete(action=OnDeleteAction.NO_ACTION)
     @JsonIgnore
     private ProvinsiModel provinsi;
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNama() {
+        return this.nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getDeskripsi() {
+        return this.deskripsi;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+
+    public ProvinsiModel getProvinsi() {
+        return this.provinsi;
+    }
+
+    public void setProvinsi(ProvinsiModel provinsi) {
+        this.provinsi = provinsi;
+    }
     
 }

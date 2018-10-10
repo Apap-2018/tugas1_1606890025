@@ -2,7 +2,9 @@ package com.apap.tugas1.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,7 +26,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name="pegawai")
 public class PegawaiModel implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -35,8 +38,8 @@ public class PegawaiModel implements Serializable {
 
     @NotNull
     @Size(max=255)
-    @Column(name="nama_pegawai", nullable=false)
-    private String namaPegawai;
+    @Column(name="nama", nullable=false)
+    private String nama;
 
     @NotNull
     @Size(max=255)
@@ -57,5 +60,72 @@ public class PegawaiModel implements Serializable {
     @OnDelete(action=OnDeleteAction.NO_ACTION)
     @JsonIgnore
     private InstansiModel instansi;
+
+    @OneToMany(mappedBy="pegawai", cascade=CascadeType.ALL)
+    private Set<JabatanPegawaiModel> jabatanPegawai;
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNip() {
+        return this.nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public String getNama() {
+        return this.nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getTempatLahir() {
+        return this.tempatLahir;
+    }
+
+    public void setTempatLahir(String tempatLahir) {
+        this.tempatLahir = tempatLahir;
+    }
+
+    public Date getTanggalLahir() {
+        return this.tanggalLahir;
+    }
+
+    public void setTanggalLahir(Date tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
+    }
+
+    public String getTahunMasuk() {
+        return this.tahunMasuk;
+    }
+
+    public void setTahunMasuk(String tahunMasuk) {
+        this.tahunMasuk = tahunMasuk;
+    }
+
+    public InstansiModel getInstansi() {
+        return this.instansi;
+    }
+
+    public void setInstansi(InstansiModel instansi) {
+        this.instansi = instansi;
+    }
+
+    public Set<JabatanPegawaiModel> getJabatanPegawai() {
+        return this.jabatanPegawai;
+    }
+
+    public void setJabatanPegawai(Set<JabatanPegawaiModel> jabatanPegawai) {
+        this.jabatanPegawai = jabatanPegawai;
+    }
 
 }

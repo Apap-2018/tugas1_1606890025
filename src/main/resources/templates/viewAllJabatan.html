@@ -1,0 +1,76 @@
+<!DOCTYPE Html>
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <title>Lihat Pegawai</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    </head>
+
+    <body>
+        <table id="myTable" class="display">
+            <thead>
+                <tr>
+                    <th>Jabatan</th>
+                    <th>Deskripsi</th>
+                    <th>Gaji Pokok</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <!-- <p th:text=${listOfJabatan}></p> -->
+        <!-- <table th:object="${jabatan}">
+            <tr>
+                <td>Nama:</td>
+                <td th:text="*{nama}"></td>
+            </tr>
+            <tr>
+                <td>Deskripsi:</td>
+                <td th:text="*{deskripsi}"></td>
+            </tr>
+            <tr>
+                <td>Gaji Pokok:</td>
+                <td th:text="*{gajiPokok}"></td>
+            </tr>
+        </table> -->
+    </body>
+
+</html>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function(e) {
+        $('#myTable').DataTable( {
+            "ajax": {
+                // "dataType" : 'List',
+                // "contentType": "application/json; charset=utf-8",
+                "url": "/jabatan/data/" ,
+                // "dataSrc":"dataku",
+            },
+            "columns" : [
+                {"data" : "Nama"},
+                {"data" : "Deskripsi"},
+                // {
+                //     "data" : "Poster",
+                //     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                //         $(nTd).html("<img src='"+ oData.Poster +"' style='height:50%' class='img-responsive img-thumbnail'/>");
+                //     }
+                // },
+                // {
+                //     "data" : null,
+                //     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                //         $(nTd).html("<a href='/lab-10/movie/detail/"+ oData.imdbID +"/' class='btn btn-primary'> Detail </a>");
+                //     }
+                // }
+            ],
+        } );
+    });
+</script>

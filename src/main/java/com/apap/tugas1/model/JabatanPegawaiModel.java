@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,5 +20,37 @@ public class JabatanPegawaiModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    // @OneToOne(mappedBy="id", fetch=FetchType.LAZY)
+    // source https://hellokoding.com/jpa-many-to-many-extra-columns-relationship-mapping-example-with-spring-boot-maven-and-mysql/
+    @ManyToOne
+    @JoinColumn(name="id_pegawai", referencedColumnName="id")
+    private PegawaiModel pegawai;
+
+    @ManyToOne
+    @JoinColumn(name="id_jabatan", referencedColumnName="id")
+    private JabatanModel jabatan;
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public PegawaiModel getPegawai() {
+        return this.pegawai;
+    }
+
+    public void setPegawai(PegawaiModel pegawai) {
+        this.pegawai = pegawai;
+    }
+
+    public JabatanModel getJabatan() {
+        return this.jabatan;
+    }
+
+    public void setJabatan(JabatanModel jabatan) {
+        this.jabatan = jabatan;
+    }
+
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE Html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <h2>Sistem Informasi Kepegawaian</h2>
+        
+        <h3>Lihat Data Pegawai Berdasarkan NIP</h3>
+        <form th:action="@{/pegawai(nip=${nip})}" method="GET">
+            Nomor Induk Pegawai: <br>
+            <input type="text" name="nip" placeholder="Masukkan NIP"/>
+            <button type="submit">Cari</button>
+        </form>
+
+        <h3>Lihat Detail Jabatan</h3>
+        <form th:action="@{/jabatan/view(idJabatan=${idJabatan})}" method="GET">
+            Pilih Jabatan: <br>
+            <select type="text" name="idJabatan">
+                <option th:each="jabatan: ${listOfJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+            </select> <br>
+            <button type="submit">Cari</button>
+        </form>
+        
+    </body>
+
+</html>

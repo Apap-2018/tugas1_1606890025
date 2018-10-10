@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Ubah Pegawai</title>
+    </head>
+
+    <body>
+        <h3>Ubah Pegawai</h3>
+        <form th:action="@{/pegawai/ubah}" th:object="${pegawai}" method="POST">
+            Nama: <br>
+            <input type="text" name="nama" /> <br>
+            
+            Tempat Lahir: <br>
+            <input type="text" name="tempatLahir" /> <br>
+            
+            Tanggal Lahir: <br>
+            <input type="date" name="tanggalLahir" /> <br>
+            
+            Tahun Masuk: <br>
+            <input type="number" name="tahunMasuk" /> <br>
+            
+            Provinsi: <br>
+            <select type="text" name="provinsi" th:object="${provin}">
+                <option th:each="prov: ${provinsi}" th:value="${prov.nama}" th:text="${prov.nama}"></option>
+            </select> <br>
+            
+            <!-- todo filter instansi by provinsi -->
+            Nama Instansi: <br>
+            <select type="text" name="instansi">
+                <option th:each="inst: ${instansi}" th:value="${inst.id}" th:text="${inst.nama}"></option>
+            </select> <br>
+
+            Jabatan: <br>
+            <select type="text" name="jabatan">
+                <option th:each="jab: ${jabatan}" th:value="${jab.nama}" th:text="${jab.nama}"></option>
+            </select> <br>
+            
+            <br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+</html>
