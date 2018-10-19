@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
 public interface PegawaiDb extends JpaRepository<PegawaiModel, Long> {
     PegawaiModel findByNip(String nip);
     List<PegawaiModel> findByInstansi(InstansiModel instansi);
+    List<PegawaiModel> findAllByOrderByTanggalLahirAscTahunMasukAsc();
 };

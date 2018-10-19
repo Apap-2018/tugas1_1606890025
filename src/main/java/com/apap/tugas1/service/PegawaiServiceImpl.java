@@ -1,5 +1,6 @@
 package com.apap.tugas1.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class PegawaiServiceImpl implements PegawaiService {
 
     @Override
     public void addPegawai(PegawaiModel pegawai) {
-        pegawai.setNip();
+        pegawai.setNip(this.generateNip(pegawai));
         
         List<JabatanPegawaiModel> temp = pegawai.getJabatanPegawai();
         pegawai.setJabatanPegawai(new ArrayList<>());
@@ -70,4 +71,18 @@ public class PegawaiServiceImpl implements PegawaiService {
         return false;
     }
 
+    private String generateNip(PegawaiModel pegawai) {
+        String result = "";
+        result += pegawai.getInstansi().getId();
+        LocalDate date = pegawai.getTanggalLahir().toLocalDate();
+        result += date.getDayOfMonth() < 10 ? "0" + date.getDayOfMonth() : date.getDayOfMonth();
+        result += date.getMonthValue() < 10 ? "0" + date.getMonthValue() : date.getMonthValue();
+        result += date.getYear() < 10 ? "0" + date.getYear() : date.getYear() % 100;
+        result += pegawai.getTahunMasuk();
+        int test = pegawaiDb.findAllByOrderByTanggalLahirAscTahunMasukAsc().size();
+        System.out.println(test);
+        result += test < 10 ? "0" + test : test;
+        
+        return result;
+    }
 }
