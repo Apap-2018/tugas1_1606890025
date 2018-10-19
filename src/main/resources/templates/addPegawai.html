@@ -3,41 +3,64 @@
 
     <head>
         <title>Add Pilot</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </head>
 
-    <body>
+    <body class="container">
         <h3>Tambah Pegawai</h3>
-        <form th:action="@{/pegawai/tambah}" th:object="${pegawai}" method="POST">
-            Nama: <br>
-            <input type="text" name="nama" /> <br>
+        <form th:action="@{/pegawai/tambah}" th:object="${pegawai}" method="POST" id="form-pegawai" class="form-group row">
+            <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+            <input type="text" name="nama" class="form-control col-sm-10"/> <br>
             
-            Tempat Lahir: <br>
-            <input type="text" name="tempatLahir" /> <br>
+            <label for="tempatLahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
+            <input type="text" name="tempatLahir" class="form-control col-sm-10"/> <br>
             
-            Tanggal Lahir: <br>
-            <input type="date" name="tanggalLahir" /> <br>
+
+            <label for="tanggalLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+            <input type="date" name="tanggalLahir" class="form-control col-sm-10"/> <br>
             
-            Tahun Masuk: <br>
-            <input type="number" name="tahunMasuk" /> <br>
+            <label for="tahunMasuk" class="col-sm-2 col-form-label">Tahun Masuk</label>
+            <input type="number" name="tahunMasuk" class="form-control col-sm-10"/> <br>
             
-            Provinsi: <br>
-            <select type="text" name="provinsiField">
-                <option th:each="prov: ${provinsi}" th:value="${prov.nama}" th:text="${prov.nama}"></option>
+            <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+            <select type="text" name="provinsi" id="provinsi-field" class="form-control col-sm-10">
+                <option th:each="prov: ${listOfProvinsi}" th:value="${prov.id}" th:text="${prov.nama}"></option>
             </select> <br>
             
-            <!-- todo filter instansi by provinsi -->
-            Nama Instansi: <br>
-            <select type="text" name="instansi">
-                <option th:each="inst: ${instansi}" th:value="${inst.id}" th:text="${inst.nama}"></option>
+            <!-- todo hide instead of disable -->
+            <label for="instansi" class="col-sm-2 col-form-label">Instansi</label>
+            <select type="text" name="instansi" id="instansi-field" class="form-control col-sm-10">
+                <option th:each="inst: ${listOfInstansi}" th:value="${inst.id}" th:provinsi="${inst.provinsi.id}" th:text="${inst.nama}"></option>
             </select> <br>
 
-            Jabatan: <br>
-            <select type="text" name="jabatan">
-                <option th:each="jab: ${jabatan}" th:value="${jab.nama}" th:text="${jab.nama}"></option>
-            </select> <br>
+            <label for="jabatan" class="col-sm-2">Jabatan</label>
+            <div class="col-sm-10">
+                <select th:each="jabatan, jabatanStat : *{jabatanPegawai}" type="text" th:field="*{jabatanPegawai[__${jabatanStat.index}__].jabatan}" class="form-control">
+                    <option th:each="jab: ${listOfJabatan}" th:value="${jab.id}" th:text="${jab.nama}"></option>
+                </select> <br>
+            </div>
             
+
+            <button type="submit" name="add-row" class="btn btn-secondary">tambah jabatan</button>
             <br><br>
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </body>
 </html>
+
+<script>
+
+    $('#provinsi-field').on('click', function() {
+        $('#instansi-field').children('option').each( function() {
+            if ( $(this).attr('provinsi') !== $('#provinsi-field').val() ) $(this).attr('disabled', 'disabled')
+            else $(this).removeAttr('disabled')
+        })
+    })
+    $('#provinsi-field').trigger('click')
+
+</script>

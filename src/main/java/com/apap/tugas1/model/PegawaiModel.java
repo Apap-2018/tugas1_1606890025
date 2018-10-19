@@ -2,6 +2,9 @@ package com.apap.tugas1.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -62,13 +65,13 @@ public class PegawaiModel implements Serializable {
     private InstansiModel instansi;
 
     @OneToMany(mappedBy="pegawai", cascade=CascadeType.ALL)
-    private Set<JabatanPegawaiModel> jabatanPegawai;
+    private List<JabatanPegawaiModel> jabatanPegawai;
 
     public long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void ListId(long id) {
         this.id = id;
     }
 
@@ -120,12 +123,20 @@ public class PegawaiModel implements Serializable {
         this.instansi = instansi;
     }
 
-    public Set<JabatanPegawaiModel> getJabatanPegawai() {
+    public List<JabatanPegawaiModel> getJabatanPegawai() {
         return this.jabatanPegawai;
     }
 
-    public void setJabatanPegawai(Set<JabatanPegawaiModel> jabatanPegawai) {
+    public void setJabatanPegawai(List<JabatanPegawaiModel> jabatanPegawai) {
         this.jabatanPegawai = jabatanPegawai;
     }
 
+    // todo
+    public void addJabatanPegawai(JabatanPegawaiModel jabatanPegawai) {
+        this.getJabatanPegawai().add(jabatanPegawai);
+    }
+
+    public String toString() {
+        return this.nama + this.nip;
+    }
 }

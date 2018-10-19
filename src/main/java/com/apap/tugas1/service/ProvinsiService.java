@@ -6,7 +6,8 @@ import com.apap.tugas1.model.ProvinsiModel;
 
 public interface ProvinsiService {
     List<ProvinsiModel> getAll();
-    ProvinsiModel getProvinsi(String nip);
+    ProvinsiModel getProvinsi(String nama);
+    ProvinsiModel getProvinsi(long id);
     boolean addProvinsi(ProvinsiModel provinsi);
     boolean removeProvinsi(ProvinsiModel provinsi);
 };

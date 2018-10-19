@@ -1,20 +1,86 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
 
-    <head>
-        <title>Cari Pegawai</title>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
-    </head>
+    <title>Home</title>
+    <Object th:include="fragments/fragment :: css" th:remove="tag"></Object>
+    <Object th:include="fragments/fragment :: js" th:remove="tag"></Object>  
+    <link rel="stylesheet" th:href="@{/DataTables/datatables.css}" />
+    <script th:src="@{/DataTables/datatables.js}"></script>
 
-    <body>
+</head>
+<body>
+    <!-- <nav th:replace="fragments/fragment :: navbar(content='Home')"></nav> -->
+    <div class="container"><br>
+        <h3>Cari Pegawai</h3>
+        <form th:action="@{/pegawai/cari( idProvinsi=${idProvinsi}, idInstansi=${idInstansi}, idJabatan=${idJabatan} )}" method=GET>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Provinsi</label>
+                <div class="col-sm-8">
+                    <select type="text" name="idProvinsi" id="provinsi" class="form-control">
+                        <option th:each="provinsi: ${listOfProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}"></option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group row"> 
+                <label class="col-sm-4 col-form-label">Instansi</label> 
+                <div class="col-sm-8">
+                    <select type="text" name="idInstansi" id="instansi" class="form-control">
+                        <option th:each="instansi: ${listOfInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}" th:prov="${instansi.provinsi.id}"></option>
+                    </select>
+                </div>
+            </div>
 
-    </body>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Jabatan</label>   
+                <div class="col-sm-8">          
+                    <select type="text" name="idJabatan" class="form-control">
+                        <option th:each="jabatan: ${listOfJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+                    </select>
+                </div>
+            </div>  
+            <button type="submit" id="cari">Cari</button><br><br><br>    
+        </form>
+
+        <h3>Data Pegawai</h3><br>
+        <table id="table_id" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>NIP</th>
+                    <th>Instansi</th>
+                    <th>Provinsi Instansi</th>                    
+                    <th>Jabatan</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="res: ${result}">
+                    <td th:text="${res.nama}"></td>
+                    <td th:text="${res.nip}"></td>
+                    <td th:text="${res.instansi.nama}"></td>
+                    <td th:text="${res.instansi.provinsi.nama}"></td>
+                    <td >
+                        <p th:each="jabatan : ${res.jabatanPegawai}" th:text="${jabatan.stringJabatan()}"></p>
+                    </td>                    
+                </tr>
+            </tbody>
+        </table>  
+    </div>
+    
+</body>
 </html>
 
 <script>
-$(document).ready( function () {
-    $('#table_id').DataTable();
-} );
+    $(document).ready(function () {
+        $('#table_id').DataTable(); 
+    });
+
+    $('#provinsi').on('click',function() {
+        $('#instansi').children('option').each(function(){
+            if($(this).attr('prov') !== $('#provinsi').val() ) $(this).css('display', 'none')
+            else $(this).css('display', 'initial')
+        }) 
+    })
+    $('#provinsi').trigger('click')
 </script>

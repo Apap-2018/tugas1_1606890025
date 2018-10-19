@@ -53,4 +53,11 @@ public class JabatanPegawaiModel implements Serializable {
         this.jabatan = jabatan;
     }
 
+    public String stringJabatan() {
+        return this.jabatan.getNama();
+    }
+
+    public String stringPegawai() {
+        return this.pegawai.getNama();
+    }
 }

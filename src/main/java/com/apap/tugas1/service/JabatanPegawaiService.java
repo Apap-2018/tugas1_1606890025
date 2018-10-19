@@ -7,7 +7,7 @@ import com.apap.tugas1.model.JabatanPegawaiModel;
 import com.apap.tugas1.model.PegawaiModel;
 
 public interface JabatanPegawaiService {
-    List<JabatanModel> getJabatanPegawai(PegawaiModel pegawai);
-    boolean addJabatanPegawai(JabatanPegawaiModel jabatanPegawai); 
+    // List<PegawaiModel> getPegawaiWithJabatan(JabatanModel pegawai);
+    void addJabatanPegawai(JabatanModel jabatan, PegawaiModel pegawai); 
     boolean removeJabatanPegawai(JabatanPegawaiModel jabatanPegawai);
 }

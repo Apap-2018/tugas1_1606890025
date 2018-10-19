@@ -17,22 +17,23 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class JabatanPegawaiServiceImpl implements JabatanPegawaiService {
     @Autowired private JabatanPegawaiDb jabatanPegawaiDb;
-    @Autowired private JabatanDb jabatanDb;
 
     @Override
-    public List<JabatanModel> getJabatanPegawai(PegawaiModel pegawai) {
-        // return jabatans;
-        return null;
-    }
-
-    @Override
-    public boolean addJabatanPegawai(JabatanPegawaiModel jabatanPegawai) {
-        return false;
+    public void addJabatanPegawai(JabatanModel jabatan, PegawaiModel pegawai) {
+        JabatanPegawaiModel jabatanPegawai = new JabatanPegawaiModel();
+        jabatanPegawai.setJabatan(jabatan);
+        jabatanPegawai.setPegawai(pegawai);
+        jabatanPegawaiDb.save(jabatanPegawai);
     }
 
     @Override
     public boolean removeJabatanPegawai(JabatanPegawaiModel jabatanPegawai) {
         return false;
 	}
+
+    // @Override
+    // public List<PegawaiModel> getPegawaiWithJabatan(JabatanModel jabatan) {
+    //     return jabatanPegawaiDb.findByJabatan(jabatan)
+    // }
 
 }

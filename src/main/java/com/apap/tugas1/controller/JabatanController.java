@@ -54,8 +54,8 @@ public class JabatanController {
     // FITUR 8
     @RequestMapping(value="/jabatan/hapus", method=RequestMethod.POST)
     public String removeJabatan(@ModelAttribute JabatanModel jabatan, Model model) {
-        jabatanService.removeJabatan(jabatan);
-        model.addAttribute("response", jabatanService.getJabatanById(jabatan.getId()) == null);
+        boolean isSuceed = jabatanService.removeJabatan(jabatan);
+        model.addAttribute("response", isSuceed);
         // todo true false delete
         return "responsePage";
     }
@@ -67,7 +67,7 @@ public class JabatanController {
         return "viewAllJabatan";
     }
 
-    @RequestMapping(value="/jabatan/data", method=RequestMethod.GET)
+    @RequestMapping(value="/jabatan/data")
     public List<JabatanModel> dataJabatan(Model model) {
         return jabatanService.getAll();
     }

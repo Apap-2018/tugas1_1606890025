@@ -1,8 +1,11 @@
 package com.apap.tugas1.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.apap.tugas1.model.InstansiModel;
+import com.apap.tugas1.model.PegawaiModel;
+import com.apap.tugas1.model.ProvinsiModel;
 import com.apap.tugas1.repository.InstansiDb;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +24,8 @@ public class InstansiServiceImpl implements InstansiService {
     }
 
     @Override
-    public InstansiModel getInstansi(String nama) {
-        return null;
+    public InstansiModel getInstansi(long id) {
+        return instansidb.getOne(id);
     }
 
     @Override
@@ -33,6 +36,6 @@ public class InstansiServiceImpl implements InstansiService {
 	@Override
 	public boolean removeInstansi(InstansiModel instansi) {
 		return false;
-	}
+    }
 
 }

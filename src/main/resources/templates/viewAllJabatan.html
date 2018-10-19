@@ -50,14 +50,14 @@
     $(document).ready(function(e) {
         $('#myTable').DataTable( {
             "ajax": {
-                // "dataType" : 'List',
-                // "contentType": "application/json; charset=utf-8",
-                "url": "/jabatan/data/" ,
+                // "dataType" : 'list',
+                "contentType": "application/json; charset=utf-8",
+                "url": "/data/jabatan" ,
                 // "dataSrc":"dataku",
             },
             "columns" : [
-                {"data" : "Nama"},
-                {"data" : "Deskripsi"},
+                {"data" : "nama"},
+                {"data" : "deskripsi"},
                 // {
                 //     "data" : "Poster",
                 //     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {

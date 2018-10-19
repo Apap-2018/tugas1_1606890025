@@ -9,6 +9,6 @@ public interface JabatanService {
     JabatanModel getJabatan(String nama);
     JabatanModel getJabatanById(long id);
     void addJabatan(JabatanModel jabatan); 
-    void removeJabatan(JabatanModel jabatan);
+    boolean removeJabatan(JabatanModel jabatan);
     void updateJabatan(JabatanModel jabatan);
 }

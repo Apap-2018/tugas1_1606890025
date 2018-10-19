@@ -1,11 +1,19 @@
 package com.apap.tugas1.service;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+
+import javax.persistence.PersistenceException;
 
 import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.repository.JabatanDb;
 
+import org.hibernate.HibernateException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.hibernate5.HibernateJdbcException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +44,14 @@ public class JabatanServiceImpl implements JabatanService {
     }
 
     @Override
-	public void removeJabatan(JabatanModel jabatan) {
-        if( jabatanDb.getOne(jabatan.getId()).getJabatanPegawai().isEmpty() ) jabatanDb.deleteById(jabatan.getId());
+	public boolean removeJabatan(JabatanModel jabatan) {
+        try {
+            jabatanDb.deleteById(jabatan.getId());
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+        // if( jabatanDb.getOne(jabatan.getId()).getJabatanPegawai().isEmpty() ) 
 	}
 
     @Override

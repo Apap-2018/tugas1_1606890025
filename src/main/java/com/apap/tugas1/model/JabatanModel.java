@@ -36,7 +36,7 @@ public class JabatanModel implements Serializable {
     @Column(name="gaji_pokok")
     private Double gajiPokok;
 
-    @OneToMany(mappedBy="jabatan", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="jabatan", cascade=CascadeType.PERSIST)
     private Set<JabatanPegawaiModel> jabatanPegawai;
 
     public long getId() {

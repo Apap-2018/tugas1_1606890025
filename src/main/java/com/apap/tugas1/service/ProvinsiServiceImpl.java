@@ -25,6 +25,11 @@ public class ProvinsiServiceImpl implements ProvinsiService {
         return provinsiDb.findByNama(nama);
     }
 
+    @Override 
+    public ProvinsiModel getProvinsi(long id) {
+        return provinsiDb.getOne(id);
+    }
+
     @Override
     public boolean addProvinsi(ProvinsiModel provinsi) {
         return false;

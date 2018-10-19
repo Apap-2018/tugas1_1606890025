@@ -37,13 +37,12 @@
             <tr>
                 <td>Jabatan:</td>
                 <td>
-                    <ul><li th:each="jab: ${jabatan}" th:text="${jab.jabatan.nama} + ' ' + ${jab.jabatan.gajiPokok}"></li></ul>
+                    <ul><li th:each="jab: ${jabatan}" th:text="${jab.jabatan.nama}"></li></ul>
                 </td>
             </tr>
             <tr>
                 <td>Gaji:</td>
-                <td> </td>
-                <!-- todo insert highest gaji-->
+                <td th:text="${gaji}"> </td>
             </tr>
         </table>
     </body>
