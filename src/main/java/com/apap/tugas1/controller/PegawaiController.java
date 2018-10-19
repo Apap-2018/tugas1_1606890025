@@ -119,8 +119,27 @@ public class PegawaiController {
         return "editPegawai";
     }
 
+    @RequestMapping(value="/pegawai/ubah", method=RequestMethod.POST, params={"add-row"})
+    public String editPegawaiSubmit(@ModelAttribute PegawaiModel pegawai,
+                                    BindingResult bindingResult,
+                                    Model model) {
+        pegawai.getJabatanPegawai().add(new JabatanPegawaiModel());
+        model.addAttribute("pegawai", pegawai);
+
+        List<ProvinsiModel> listOfProvinsi = provinsiService.getAll();
+        model.addAttribute("listOfProvinsi", listOfProvinsi);
+
+        List<InstansiModel> listOfInstansi = instansiService.getAll();
+        model.addAttribute("listOfInstansi", listOfInstansi);
+
+        List<JabatanModel> listOfJabatan = jabatanService.getAll();
+        model.addAttribute("listOfJabatan", listOfJabatan);
+
+        return "editPegawai";
+    }
+
     @RequestMapping(value="/pegawai/ubah", method=RequestMethod.POST)
-    public String editPegawaiSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
+    public String editPegawaiAddRow(@ModelAttribute PegawaiModel pegawai, Model model) {
         pegawaiService.addPegawai(pegawai);
         String response = String.format("Pegawai dengan NIP %s berhasil diubah", pegawai.getNip());
         model.addAttribute("response", response);
