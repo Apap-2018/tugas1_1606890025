@@ -63,8 +63,8 @@ public class PegawaiServiceImpl implements PegawaiService {
             jabatanPegawai.setPegawai(pegawai);
             jabatanPegawaiDb.save(jabatanPegawai);
         }
-
     }
+
 
     @Override
     public boolean removePegawai(PegawaiModel pegawai) {
@@ -79,10 +79,19 @@ public class PegawaiServiceImpl implements PegawaiService {
         result += date.getMonthValue() < 10 ? "0" + date.getMonthValue() : date.getMonthValue();
         result += date.getYear() < 10 ? "0" + date.getYear() : date.getYear() % 100;
         result += pegawai.getTahunMasuk();
-        int test = pegawaiDb.findAllByOrderByTanggalLahirAscTahunMasukAsc().size();
-        System.out.println(test);
-        result += test < 10 ? "0" + test : test;
+        int lastTwo = pegawaiDb.findByTanggalLahirAndTahunMasukOrderByTanggalLahirAscTahunMasukAsc(pegawai.getTanggalLahir(), pegawai.getTahunMasuk()).size();
+        result += lastTwo < 10 ? "0" + lastTwo : lastTwo;
         
         return result;
+    }
+
+    @Override
+    public PegawaiModel getOldestPegawai(InstansiModel instansi) {
+        return pegawaiDb.findByInstansiOrderByTanggalLahirDesc(instansi).get(0);
+    }
+
+    @Override
+    public PegawaiModel getYoungestPegawai(InstansiModel instansi) {
+        return pegawaiDb.findByInstansiOrderByTanggalLahirAsc(instansi).get(0);
     }
 }

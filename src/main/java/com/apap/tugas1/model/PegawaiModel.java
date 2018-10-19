@@ -71,7 +71,7 @@ public class PegawaiModel implements Serializable {
         return this.id;
     }
 
-    public void ListId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

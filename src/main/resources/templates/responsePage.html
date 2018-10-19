@@ -1,12 +1,18 @@
-<!DOCTYPE Html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<!DOCTYPE html>
+<html xlmns:th="http://www.thymeleaf.org">
     <head>
-        <title>Home</title>
+        <title>Lihat semua jabatan</title>
+        <Object th:include="fragments/fragment :: css" th:remove="tag"></Object>
+        <Object th:include="fragments/fragment :: js" th:remove="tag"></Object>  
+        <link rel="stylesheet" th:href="@{/DataTables/datatables.css}" />
+        <script th:src="@{/DataTables/datatables.js}"></script>
     </head>
 
     <body>
-        <p th:text="${response}"></p>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container">
+            <p th:text="${response}"></p>
+        </div>
     </body>
 
 </html>

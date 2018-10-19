@@ -1,0 +1,81 @@
+<!DOCTYPE Html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Lihat Pegawai</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+ 
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    </head>
+
+    <body>
+        <h2>Youngest</h2>
+        <table th:object="${youngest}">
+            <tr>
+                <td>NIP:</td>
+                <td th:text="*{nip}"></td>
+            </tr>
+            <tr>
+                <td>Nama Pegawai:</td>
+                <td th:text="*{nama}"></td>
+            </tr>
+            <tr>
+                <td>Tempat Lahir:</td>
+                <td th:text="*{tempatLahir}"></td>
+            </tr>
+            <tr>
+                <td>Tanggal Lahir:</td>
+                <td th:text="*{tanggalLahir}"></td>
+            </tr>
+            <tr>
+                <td>Tahun Masuk:</td>
+                <td th:text="*{tahunMasuk}"></td>
+            </tr>
+            <tr>
+                <td>Nama Instansi:</td>
+                <td th:text="*{instansi.nama}"></td>
+            </tr>
+            <tr>
+                <td>Jabatan:</td>
+                <td>
+                    <ul><li th:each="jab: *{jabatanPegawai}" th:text="${jab.jabatan.nama}"></li></ul>                    
+                </td>
+            </tr>
+        </table>
+
+        <h1>Oldest</h1>
+        <table th:object="${oldest}">
+                <tr>
+                    <td>NIP:</td>
+                    <td th:text="*{nip}"></td>
+                </tr>
+                <tr>
+                    <td>Nama Pegawai:</td>
+                    <td th:text="*{nama}"></td>
+                </tr>
+                <tr>
+                    <td>Tempat Lahir:</td>
+                    <td th:text="*{tempatLahir}"></td>
+                </tr>
+                <tr>
+                    <td>Tanggal Lahir:</td>
+                    <td th:text="*{tanggalLahir}"></td>
+                </tr>
+                <tr>
+                    <td>Tahun Masuk:</td>
+                    <td th:text="*{tahunMasuk}"></td>
+                </tr>
+                <tr>
+                    <td>Nama Instansi:</td>
+                    <td th:text="*{instansi.nama}"></td>
+                </tr>
+                <tr>
+                    <td>Jabatan:</td>
+                    <td>
+                        <ul><li th:each="jab: *{jabatanPegawai}" th:text="${jab.jabatan.nama}"></li></ul>
+                    </td>
+                </tr>
+            </table>
+    </body>
+
+</html>

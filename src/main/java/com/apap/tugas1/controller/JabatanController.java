@@ -26,7 +26,7 @@ public class JabatanController {
     @RequestMapping(value="/jabatan/tambah", method=RequestMethod.POST)
     public String addJabatanSubmit(@ModelAttribute JabatanModel jabatan, Model model) {
         jabatanService.addJabatan(jabatan);
-        model.addAttribute("jabatan", jabatan);
+        model.addAttribute("response", "Berhasil Menambahkan Data Jabatan");
         return "responsePage";
     }
 
@@ -48,15 +48,17 @@ public class JabatanController {
     @RequestMapping(value="/jabatan/ubah", method=RequestMethod.POST)
     public String editJabatanSubmit(@ModelAttribute JabatanModel jabatan,
                                     Model model) {
-        return "editJabatan";
+        model.addAttribute("response", "Berhasil Mengubah Data Jabatan");
+        return "responsePage";
     }
 
     // FITUR 8
     @RequestMapping(value="/jabatan/hapus", method=RequestMethod.POST)
     public String removeJabatan(@ModelAttribute JabatanModel jabatan, Model model) {
         boolean isSuceed = jabatanService.removeJabatan(jabatan);
-        model.addAttribute("response", isSuceed);
-        // todo true false delete
+        // belum bisa catch error pas jabatannya masih ada pegawainya
+        // kalo udah kosong, bisa di hapus
+        model.addAttribute("response", isSuceed ? "Berhasil Menghapus Data Jabatan" : "Gagal Menghapus Data Jabatan");
         return "responsePage";
     }
         
@@ -64,12 +66,7 @@ public class JabatanController {
     @RequestMapping(value="/jabatan/viewall", method=RequestMethod.GET)
     public String viewAllJabatan(Model model) {
         model.addAttribute("listOfJabatan", jabatanService.getAll());
-        return "viewAllJabatan";
-    }
-
-    @RequestMapping(value="/jabatan/data")
-    public List<JabatanModel> dataJabatan(Model model) {
-        return jabatanService.getAll();
+        return "getAllJabatan";
     }
 
 }

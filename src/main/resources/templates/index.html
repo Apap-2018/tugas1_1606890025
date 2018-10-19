@@ -3,27 +3,33 @@
 
     <head>
         <title>Home</title>
+        <Object th:include="fragments/fragment :: css" th:remove="tag"></Object>
+        <Object th:include="fragments/fragment :: js" th:remove="tag"></Object>  
+        <link rel="stylesheet" th:href="@{/DataTables/datatables.css}" />
+        <script th:src="@{/DataTables/datatables.js}"></script>
     </head>
 
     <body>
-        <h2>Sistem Informasi Kepegawaian</h2>
-        
-        <h3>Lihat Data Pegawai Berdasarkan NIP</h3>
-        <form th:action="@{/pegawai(nip=${nip})}" method="GET">
-            Nomor Induk Pegawai: <br>
-            <input type="text" name="nip" placeholder="Masukkan NIP"/>
-            <button type="submit">Cari</button>
-        </form>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container">
+            <br><br><br>
+            <h4>Lihat Data Pegawai Berdasarkan NIP</h4>
+            <form th:action="@{/pegawai(nip=${nip})}" method="GET" class="form-group">
+                Nomor Induk Pegawai: <br>
+                <input type="text" name="nip" placeholder="Masukkan NIP" class="form-control"/>
+                <button class="btn btn-primary" type="submit">Cari</button>
+            </form>
 
-        <h3>Lihat Detail Jabatan</h3>
-        <form th:action="@{/jabatan/view(idJabatan=${idJabatan})}" method="GET">
-            Pilih Jabatan: <br>
-            <select type="text" name="idJabatan">
-                <option th:each="jabatan: ${listOfJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
-            </select> <br>
-            <button type="submit">Cari</button>
-        </form>
-        
+            <br><br><br>
+            <h3>Lihat Detail Jabatan</h3>
+            <form th:action="@{/jabatan/view(idJabatan=${idJabatan})}" method="GET" class="form-group">
+                Pilih Jabatan: <br>
+                <select type="text" name="idJabatan" class="form-control">
+                    <option th:each="jabatan: ${listOfJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
+                </select> <br>
+                <button class="btn btn-primary" type="submit">Cari</button>
+            </form>
+        </div>    
     </body>
 
 </html>

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <title>Home</title>
+<head>
+    <title>Cari Pegawai</title>
     <Object th:include="fragments/fragment :: css" th:remove="tag"></Object>
     <Object th:include="fragments/fragment :: js" th:remove="tag"></Object>  
     <link rel="stylesheet" th:href="@{/DataTables/datatables.css}" />
     <script th:src="@{/DataTables/datatables.js}"></script>
-
 </head>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
 <body>
-    <!-- <nav th:replace="fragments/fragment :: navbar(content='Home')"></nav> -->
     <div class="container"><br>
         <h3>Cari Pegawai</h3>
         <form th:action="@{/pegawai/cari( idProvinsi=${idProvinsi}, idInstansi=${idInstansi}, idJabatan=${idJabatan} )}" method=GET>
@@ -40,7 +40,7 @@
                     </select>
                 </div>
             </div>  
-            <button type="submit" id="cari">Cari</button><br><br><br>    
+            <button type="submit" class="btn btn-primary" id="cari">Cari</button><br><br><br>    
         </form>
 
         <h3>Data Pegawai</h3><br>

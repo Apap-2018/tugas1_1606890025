@@ -3,48 +3,53 @@
 
     <head>
         <title>Lihat Pegawai</title>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
- 
-        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+        <Object th:include="fragments/fragment :: css" th:remove="tag"></Object>
+        <Object th:include="fragments/fragment :: js" th:remove="tag"></Object>  
+        <link rel="stylesheet" th:href="@{/DataTables/datatables.css}" />
+        <script th:src="@{/DataTables/datatables.js}"></script>
     </head>
 
     <body>
-        <table th:object="${pegawai}">
-            <tr>
-                <td>NIP:</td>
-                <td th:text="*{nip}"></td>
-            </tr>
-            <tr>
-                <td>Nama Pegawai:</td>
-                <td th:text="*{nama}"></td>
-            </tr>
-            <tr>
-                <td>Tempat Lahir:</td>
-                <td th:text="*{tempatLahir}"></td>
-            </tr>
-            <tr>
-                <td>Tanggal Lahir:</td>
-                <td th:text="*{tanggalLahir}"></td>
-            </tr>
-            <tr>
-                <td>Tahun Masuk:</td>
-                <td th:text="*{tahunMasuk}"></td>
-            </tr>
-            <tr>
-                <td>Nama Instansi:</td>
-                <td th:text="*{instansi.nama}"></td>
-            </tr>
-            <tr>
-                <td>Jabatan:</td>
-                <td>
-                    <ul><li th:each="jab: ${jabatan}" th:text="${jab.jabatan.nama}"></li></ul>
-                </td>
-            </tr>
-            <tr>
-                <td>Gaji:</td>
-                <td th:text="${gaji}"> </td>
-            </tr>
-        </table>
+        <nav th:replace="fragments/fragment :: navbar"></nav>\
+        <div class="container">
+            <table th:object="${pegawai}" class="table">
+                <tr>
+                    <td>NIP:</td>
+                    <td th:text="*{nip}"></td>
+                </tr>
+                <tr>
+                    <td>Nama Pegawai:</td>
+                    <td th:text="*{nama}"></td>
+                </tr>
+                <tr>
+                    <td>Tempat Lahir:</td>
+                    <td th:text="*{tempatLahir}"></td>
+                </tr>
+                <tr>
+                    <td>Tanggal Lahir:</td>
+                    <td th:text="*{tanggalLahir}"></td>
+                </tr>
+                <tr>
+                    <td>Tahun Masuk:</td>
+                    <td th:text="*{tahunMasuk}"></td>
+                </tr>
+                <tr>
+                    <td>Nama Instansi:</td>
+                    <td th:text="*{instansi.nama}"></td>
+                </tr>
+                <tr>
+                    <td>Jabatan:</td>
+                    <td>
+                        <ul><li th:each="jab: ${jabatan}" th:text="${jab.jabatan.nama}"></li></ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gaji:</td>
+                    <td th:text="${gaji}"> </td>
+                </tr>
+            </table>
+            <a th:href="@{/pegawai/ubah(nip=${pegawai.nip})}"><button class="btn btn-primary">ubah</button></a>
+        </div>
     </body>
 
 </html>
