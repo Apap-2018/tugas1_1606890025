@@ -15,45 +15,57 @@
         <div class="container">
             <h3>Edit Pegawai</h3>
             <form th:action="@{/pegawai/ubah}" th:object="${pegawai}" method="POST" id="form-pegawai" class="form-group row">
+                <input type="hidden" name="id" th:value="*{id}" />
+
                 <label for="nama" class="col-sm-2 col-form-label">Nama</label>
-                <input th:value="*{nama}" type="text" name="nama" class="form-control form-control-sm col-sm-10"/> <br>
-                
-                <label for="tempatLahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
-                <input th:value="*{tempatLahir}" type="text" name="tempatLahir" class="form-control form-control-sm col-sm-10"/> <br>
-                
-
-                <label for="tanggalLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
-                <input th:value="*{tanggalLahir}" type="date" name="tanggalLahir" class="form-control form-control-sm col-sm-10"/> <br>
-                
-                <label for="tahunMasuk" class="col-sm-2 col-form-label">Tahun Masuk</label>
-                <input th:value="*{tahunMasuk}" type="number" name="tahunMasuk" class="form-control form-control-sm col-sm-10"/> <br>
-                
-                <label for="provinsi" class="col-sm-2 col-form-label" th:text="*{instansi.provinsi.nama}">Provinsi</label>
-                <select type="text" name="provinsi" id="provinsi" class="form-control form-control-sm col-sm-10">
-                    <option th:each="prov: ${listOfProvinsi}" th:value="${prov.id}" th:text="${prov.nama}" th:selected="(${prov.id} == *{instansi.provinsi.id})"></option>
-                </select> <br>
-                
-                <label for="instansi" class="col-sm-2 col-form-label" th:text="*{instansi.nama}">Instansi</label>
-                <select type="text" name="instansi" id="instansi" class="form-control form-control-sm col-sm-10" >
-                    <option th:each="inst: ${listOfInstansi}" th:value="${inst.id}" th:prov="${inst.provinsi.id}" th:text="${inst.nama}" th:selected="${inst.id} == *{instansi.id}"></option>
-                </select> <br>
-
-                <label for="jabatan" class="col-sm-2">Jabatan</label>
                 <div class="col-sm-10">
-                    <div  th:each="jp, jabatanStat : *{jabatanPegawai}" th:field="*{jabatanPegawai[__${jabatanStat.index}__]}">
-                        <input type="hidden" th:field="*{jabatanPegawai[__${jabatanStat.index}__].id}" th:value="${jp.id}">
-                        <input type="hidden" th:field="*{jabatanPegawai[__${jabatanStat.index}__].pegawai}" th:value="*{id}">
-                        <select type="text" class="form-control form-control-sm" th:field="*{jabatanPegawai[__${jabatanStat.index}__].jabatan}" th:selected="*{jabatanPegawai[__${jabatanStat.index}__].jabatan}">
-                            <option th:each="jab: ${listOfJabatan}" th:value="${jab.id}" th:text="${jab.nama}"></option>
-                        </select> 
-                    </div> <br>
+                    <input th:value="*{nama}" type="text" name="nama" class="form-control"/> <br>
                 </div>
                 
-                <input type="hidden" name="id" th:value="${pegawai.id}" />
+                <label for="tempatLahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
+                <div class="col-sm-10">
+                    <input th:value="*{tempatLahir}" type="text" name="tempatLahir" class="form-control"/> <br>
+                </div>
+                
+                <label for="tanggalLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                <div class="col-sm-10">
+                    <input th:value="*{tanggalLahir}" type="date" name="tanggalLahir" class="form-control"/> <br>
+                </div>
+                
+                <label for="tahunMasuk" class="col-sm-2 col-form-label">Tahun Masuk</label>
+                <div class="col-sm-10">
+                    <input th:value="*{tahunMasuk}" type="number" name="tahunMasuk" class="form-control"/> <br>
+                </div>
+                
+                <label for="provinsi" class="col-sm-2 col-form-label">Provinsi</label>
+                <div class="col-sm-10">
+                    <select type="text" name="provinsi" id="provinsi" class="form-control">
+                        <option th:each="prov: ${listOfProvinsi}" th:value="${prov.id}" th:text="${prov.nama}" th:selected="(${prov.id} == *{instansi.provinsi.id})"></option>
+                    </select> <br>
+                </div>
+                
+                <label for="instansi" class="col-sm-2 col-form-label">Instansi</label>
+                <div class="col-sm-10">
+                    <select type="text" name="instansi" id="instansi" class="form-control" >
+                        <option th:each="inst: ${listOfInstansi}" th:value="${inst.id}" th:prov="${inst.provinsi.id}" th:text="${inst.nama}" th:selected="${inst.id} == *{instansi.id}"></option>
+                    </select> <br>
+                </div>
 
-                <button type="submit" name="add-row" class="btn btn-secondary">tambah jabatan</button>
-                <br><br>
-                <button type="submit" class="btn btn-success">Submit</button>
+                <label for="jabatan" class="col-sm-2 col-form-label">Jabatan</label>
+                <div class="col-sm-10" style="text-align: right">
+                    <div th:each="jabatanPegawaiItem, jabatanPegawaiStat : *{jabatanPegawai}">
+                        <input type="hidden" th:field="*{jabatanPegawai[__${jabatanPegawaiStat.index}__].pegawai}" th:value="*{id}">
+                        <input type="hidden" th:field="*{jabatanPegawai[__${jabatanPegawaiStat.index}__].id}" th:value="${jabatanPegawaiItem.id}">
+                        <select type="text"  th:field="*{jabatanPegawai[__${jabatanPegawaiStat.index}__].jabatan}" th:selected="*{jabatanPegawai[__${jabatanPegawaiStat.index}__].jabatan}" class="form-control">
+                            <option th:each="jabatanItem: ${listOfJabatan}" th:value="${jabatanItem.id}" th:text="${jabatanItem.nama}"></option>
+                        </select> 
+                    </div>
+                    <button type="submit" name="add-row" class="btn btn-link">tambah jabatan</button>
+                </div>
+                
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-info float-right col-sm-3 mt-3 mb-3">Submit</button>
+                </div>
             </form>
         </body>
     </div>

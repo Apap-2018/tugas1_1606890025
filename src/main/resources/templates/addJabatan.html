@@ -12,19 +12,26 @@
     <body>
         <nav th:replace="fragments/fragment :: navbar"></nav>
         <div class="container"> <br>
-            <h3>Tambah Jabatan</h3> <br>
-            <form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST">
-                Nama: <br>
-                <input type="text" name="nama" class="form-control" /> <br>
+            <h3 class="mt-3 mb-3">Tambah Jabatan</h3>
+            <form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST" class="form-grop row">
+                <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-10">
+                    <input type="text" name="nama" class="form-control" /> <br>
+                </div>
                 
-                Deskripsi: <br>
-                <input type="text" name="deskripsi" class="form-control" /> <br>
+                <label for="nama" class="col-sm-2 col-form-label">Deskripsi</label>
+                <div class="col-sm-10">
+                    <input type="text" name="deskripsi" class="form-control" /> <br>
+                </div>
                 
-                Gaji Pokok: <br>
-                <input type="number" name="gajiPokok" class="form-control" /> <br>
+                <label for="nama" class="col-sm-2 col-form-label">Gaji Pokok</label>                
+                <div class="col-sm-10">
+                    <input type="number" name="gajiPokok" class="form-control" /> <br>
+                </div>
 
-                <br><br>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-info col-sm-3 float-right">Submit</button>
+                </div>
             </form>
         </div>
     </body>

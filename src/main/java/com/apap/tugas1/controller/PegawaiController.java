@@ -32,8 +32,10 @@ public class PegawaiController {
     /////////////////////////////////////////////////////////////////////// FITUR 1
     @RequestMapping(value="/")
     public String index(Model model) {
-        List<JabatanModel> jabatan = jabatanService.getAll();
-        model.addAttribute("listOfJabatan", jabatan);
+        List<JabatanModel> listOfJabatan = jabatanService.getAll();
+        List<InstansiModel> listOfInstansi = instansiService.getAll();
+        model.addAttribute("listOfJabatan", listOfJabatan);
+        model.addAttribute("listOfInstansi", listOfInstansi);
         return "index";
     }
     
@@ -122,7 +124,9 @@ public class PegawaiController {
     public String editPegawaiSubmit(@ModelAttribute PegawaiModel pegawai,
                                     BindingResult bindingResult,
                                     Model model) {
-        pegawai.getJabatanPegawai().add(new JabatanPegawaiModel());
+        JabatanPegawaiModel newJabatan = new JabatanPegawaiModel();
+        newJabatan.setPegawai(pegawai);
+        pegawai.getJabatanPegawai().add(newJabatan);
         model.addAttribute("pegawai", pegawai);
 
         List<ProvinsiModel> listOfProvinsi = provinsiService.getAll();

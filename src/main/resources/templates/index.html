@@ -12,23 +12,33 @@
     <body>
         <nav th:replace="fragments/fragment :: navbar"></nav>
         <div class="container">
-            <br><br><br>
+            <br><br>
             <h4>Lihat Data Pegawai Berdasarkan NIP</h4>
-            <form th:action="@{/pegawai(nip=${nip})}" method="GET" class="form-group">
-                Nomor Induk Pegawai: <br>
-                <input type="text" name="nip" placeholder="Masukkan NIP" class="form-control"/> <br>
-                <button class="btn btn-primary" type="submit">Cari</button>
+            <form th:action="@{/pegawai(nip=${nip})}" method="GET" class="input-group mb-3">
+                <input type="text" name="nip" placeholder="Masukkan Nomor Induk Pegawai ..." class="form-control" required/> <br>
+                <button class="btn btn-info" type="submit">Cari</button>
             </form>
 
             <br><br><br>
             <h3>Lihat Detail Jabatan</h3>
-            <form th:action="@{/jabatan/view(idJabatan=${idJabatan})}" method="GET" class="form-group">
-                Pilih Jabatan: <br>
-                <select type="text" name="idJabatan" class="form-control">
+            <form th:action="@{/jabatan/view(idJabatan=${idJabatan})}" method="GET" class="input-group mb-3">
+                <select type="text" name="idJabatan" class="form-control" required>
+                    <option value="" disabled selected>Pilih Jabatan ...</option>
                     <option th:each="jabatan: ${listOfJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
-                </select> <br>
-                <button class="btn btn-primary" type="submit">Cari</button>
+                </select>
+                <button class="btn btn-info" type="submit">Cari</button>
             </form>
+
+            <br><br><br>
+            <h3>Lihat Pegawai Termuda & Tertua</h3>
+            <form th:action="@{/pegawai/termuda-tertua(idInstansi=${idInstansi})}" method="GET" class="input-group mb-3">
+                <select type="text" name="idInstansi" class="form-control" required>
+                    <option value="" disabled selected>Pilih Instansi ...</option>
+                    <option th:each="instansi: ${listOfInstansi}" th:value="${instansi.id}" th:text="${instansi.nama} + ' - ' + ${instansi.provinsi.nama}"></option>
+                </select>
+                <button class="btn btn-info" type="submit">Cari</button>
+            </form>
+            <br><br>
         </div>    
     </body>
 

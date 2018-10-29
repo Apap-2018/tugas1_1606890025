@@ -2,25 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Home</title>
+        <title>Ubah jabatan</title>
+        <Object th:include="fragments/fragment :: css" th:remove="tag"></Object>
+        <Object th:include="fragments/fragment :: js" th:remove="tag"></Object>  
     </head>
 
     <body>
-        <h1>Tambah Jabatan</h1>
-        <form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST">
-            <input type="hidden" th:field="*{id}">
-            Nama: <br>
-            <input type="text" name="nama" th:value="*{nama}"/> <br>
-            
-            Deskripsi: <br>
-            <input type="text" name="deskripsi" th:value="*{deskripsi}"/> <br>
-            
-            Gaji Pokok: <br>
-            <input type="number" name="gajiPokok" th:value="*{gajiPokok}"/> <br>
+        <nav th:replace="fragments/fragment :: navbar"></nav>
+        <div class="container">
+            <h3 class="mt-3 mb-3">Ubah Jabatan</h3>
+            <form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST" class="form-group row">
+                <input type="hidden" th:field="*{id}">
 
-            <br><br>
-            <button type="submit">Submit</button>
-        </form>
+                <label for="nama" class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" name="nama" th:value="*{nama}"/> <br>
+                </div>
+                
+                <label for="deskripsi" class="col-sm-2 col-form-label">Deskripsi</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" name="deskripsi" th:value="*{deskripsi}"/> <br>
+                </div>
+                
+                <label for="gajiPokok" class="col-sm-2 col-form-label">Gaji Pokok</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="number" name="gajiPokok" th:value="*{gajiPokok}"/> <br>
+                </div>
+
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-info col-sm-3 float-right">Submit</button>
+                </div>
+            </form>
+        </div>
     </body>
 
 </html>

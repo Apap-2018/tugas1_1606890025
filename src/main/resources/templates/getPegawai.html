@@ -12,6 +12,7 @@
     <body>
         <nav th:replace="fragments/fragment :: navbar"></nav>
         <div class="container">
+            <h3 class="mt-3 mb-3">Data Pegawai</h3>
             <table th:object="${pegawai}" class="table">
                 <tr>
                     <td>NIP:</td>
@@ -48,7 +49,7 @@
                     <td th:text="${gaji}"> </td>
                 </tr>
             </table>
-            <a th:href="@{/pegawai/ubah(nip=${pegawai.nip})}"><button class="btn btn-primary">ubah</button></a>
+            <a th:href="@{/pegawai/ubah(nip=${pegawai.nip})}"><button class="btn btn-info float-right col-sm-3 mb-5">ubah</button></a>
         </div>
     </body>
 

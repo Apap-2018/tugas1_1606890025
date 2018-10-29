@@ -90,7 +90,6 @@ public class PegawaiServiceImpl implements PegawaiService {
     public void updatePegawai(PegawaiModel pegawai) {
         pegawai.setNip(this.updateNip(pegawai));
         pegawaiDb.save(pegawai);
-        
     }
 
     private String generateNip(PegawaiModel pegawai) {

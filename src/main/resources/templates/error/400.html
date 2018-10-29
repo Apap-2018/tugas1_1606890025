@@ -1,0 +1,23 @@
+<!DOCTYPE Html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>
+            SIPEG
+        </title>
+
+        <Object th:include="fragments/fragment :: css" th:remove="tag"></Object>
+        <Object th:include="fragments/fragment :: js" th:remove="tag"></Object>  
+    </head>
+
+    <body>
+        <nav th:replace="fragments/fragment :: navbar"></nav><br><br><br>
+        <div class="jumbotron d-flex flex-column justify-content-center align-items-center">
+            <h2 class="text-danger">Whoops!</h2>
+            <h4>bad request</h4>
+            <h4 th:text="${response}"></h4>
+            <a th:href="@{/}"><button class="btn btn-outline-primary">send me back!</button></a>
+        </div>    
+    </body>
+
+</html>
