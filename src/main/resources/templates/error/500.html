@@ -11,13 +11,11 @@
     </head>
 
     <body>
-        <nav th:replace="fragments/fragment :: navbar"></nav><br><br><br>
-        <div class="jumbotron d-flex flex-column justify-content-center align-items-center">
+        <div class="jumbotron d-flex flex-column justify-content-center align-items-center bg-light" style="height: 100vh">        
             <h2 class="text-danger">Whoops!</h2>
             <h4>something went wrong</h4>
             <h4 th:text="${response}"></h4>
             <a th:href="@{/}"><button class="btn btn-outline-primary">send me back!</button></a>
-
         </div>    
     </body>
 

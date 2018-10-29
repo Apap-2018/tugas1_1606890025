@@ -11,8 +11,7 @@
     </head>
 
     <body>
-        <nav th:replace="fragments/fragment :: navbar"></nav><br><br>
-        <div class="jumbotron d-flex flex-column justify-content-center align-items-center">
+        <div class="jumbotron d-flex flex-column justify-content-center align-items-center bg-light" style="height: 100vh">
             <h2 class="text-info">Whoops!</h2>
             <h4>the page you're looking is not found</h4>
             <a th:href="@{/}"><button class="btn btn-outline-primary">send me back!</button></a>
