@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface PegawaiDb extends JpaRepository<PegawaiModel, Long> {
     PegawaiModel findByNip(String nip);
     List<PegawaiModel> findByInstansi(InstansiModel instansi);
-    List<PegawaiModel> findByTanggalLahirAndTahunMasukOrderByTanggalLahirAscTahunMasukAsc(Date TanggalMasuk, String TahunMasuk);
+    List<PegawaiModel> findByInstansiAndTanggalLahirAndTahunMasukOrderByTanggalLahirAscTahunMasukAsc(InstansiModel instansi, Date TanggalMasuk, String TahunMasuk);
     List<PegawaiModel> findByInstansiOrderByTanggalLahirDesc(InstansiModel instansi);
     List<PegawaiModel> findByInstansiOrderByTanggalLahirAsc(InstansiModel instansi);
 };

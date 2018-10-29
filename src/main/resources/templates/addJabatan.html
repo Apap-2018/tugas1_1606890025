@@ -11,20 +11,20 @@
     
     <body>
         <nav th:replace="fragments/fragment :: navbar"></nav>
-        <div class="container">
-            <h1>Tambah Jabatan</h1>
+        <div class="container"> <br>
+            <h3>Tambah Jabatan</h3> <br>
             <form th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST">
                 Nama: <br>
-                <input type="text" name="nama" /> <br>
+                <input type="text" name="nama" class="form-control" /> <br>
                 
                 Deskripsi: <br>
-                <input type="text" name="deskripsi" /> <br>
+                <input type="text" name="deskripsi" class="form-control" /> <br>
                 
                 Gaji Pokok: <br>
-                <input type="number" name="gajiPokok" /> <br>
+                <input type="number" name="gajiPokok" class="form-control" /> <br>
 
                 <br><br>
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </body>

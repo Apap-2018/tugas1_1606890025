@@ -18,6 +18,7 @@
                 <label class="col-sm-4 col-form-label">Provinsi</label>
                 <div class="col-sm-8">
                     <select type="text" name="idProvinsi" id="provinsi" class="form-control">
+                        <option value="" disabled selected>pilih provinsi ..</option>
                         <option th:each="provinsi: ${listOfProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}"></option>
                     </select>
                 </div>
@@ -27,6 +28,7 @@
                 <label class="col-sm-4 col-form-label">Instansi</label> 
                 <div class="col-sm-8">
                     <select type="text" name="idInstansi" id="instansi" class="form-control">
+                        <option value="" disabled selected>pilih instansi ..</option>
                         <option th:each="instansi: ${listOfInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}" th:prov="${instansi.provinsi.id}"></option>
                     </select>
                 </div>
@@ -36,6 +38,7 @@
                 <label class="col-sm-4 col-form-label">Jabatan</label>   
                 <div class="col-sm-8">          
                     <select type="text" name="idJabatan" class="form-control">
+                        <option value="" disabled selected>pilih jabatan ..</option>
                         <option th:each="jabatan: ${listOfJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"></option>
                     </select>
                 </div>

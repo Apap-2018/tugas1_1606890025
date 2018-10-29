@@ -49,7 +49,6 @@ public class PegawaiController {
         }
         gaji += gaji * pegawai.getInstansi().getProvinsi().getPresentaseTunjangan() / 100;
         model.addAttribute("gaji", gaji.intValue());
-        // todo add jabatan & gaji
         return "getPegawai";
     }
 
@@ -140,15 +139,16 @@ public class PegawaiController {
 
     @RequestMapping(value="/pegawai/ubah", method=RequestMethod.POST)
     public String editPegawaiAddRow(@ModelAttribute PegawaiModel pegawai, Model model) {
-        pegawaiService.addPegawai(pegawai);
+        pegawaiService.updatePegawai(pegawai);
         String response = String.format("Pegawai dengan NIP %s berhasil diubah", pegawai.getNip());
         model.addAttribute("response", response);
         return "responsePage";
     }
 
-    ///////////////////////////////////////////////////////////////////////// FITUR 4 
+    ///////////////////////////////////////////////////////////////////////// FITUR 4
     @RequestMapping(value="/pegawai/cari", method=RequestMethod.GET)
-    public String findPegawaiSubmit(@RequestParam(value="idInstansi", required=false) Long idInstansi,
+    public String findPegawaiSubmit(@RequestParam(value="idProvinsi", required=false) Long idProvinsi,
+                                    @RequestParam(value="idInstansi", required=false) Long idInstansi,
                                     @RequestParam(value="idJabatan", required=false) Long idJabatan,
                                     Model model) {
 
@@ -162,9 +162,11 @@ public class PegawaiController {
         model.addAttribute("listOfJabatan", listOfJabatan);
         
         List<PegawaiModel> result = new ArrayList<>();
-        if      (idJabatan != null && idInstansi == null) result = pegawaiService.getPegawaiByJabatan( jabatanService.getJabatanById(idJabatan) );
-        else if (idJabatan == null && idInstansi != null) result = pegawaiService.getPegawaiByInstansi( instansiService.getInstansi(idInstansi) );
-        else if (idJabatan != null && idInstansi != null) result = pegawaiService.getPegawaiByInstansiAndJabatan( instansiService.getInstansi(idInstansi), jabatanService.getJabatanById(idJabatan) );
+        if      (idProvinsi != null && idInstansi == null) result = pegawaiService.getPegawaiByProvinsi( provinsiService.getProvinsi(idProvinsi) );
+        else if (idProvinsi != null && idJabatan  != null) result = pegawaiService.getPegawaiByProvinsiAndJabatan( provinsiService.getProvinsi(idProvinsi), jabatanService.getJabatanById(idJabatan) );
+        else if (idJabatan  != null && idInstansi == null) result = pegawaiService.getPegawaiByJabatan( jabatanService.getJabatanById(idJabatan) );
+        else if (idJabatan  == null && idInstansi != null) result = pegawaiService.getPegawaiByInstansi( instansiService.getInstansi(idInstansi) );
+        else if (idJabatan  != null && idInstansi != null) result = pegawaiService.getPegawaiByInstansiAndJabatan( instansiService.getInstansi(idInstansi), jabatanService.getJabatanById(idJabatan) );
 
         model.addAttribute("result", result);  
         return "findPegawai";   
@@ -177,6 +179,4 @@ public class PegawaiController {
         model.addAttribute("oldest", pegawaiService.getOldestPegawai(instansiService.getInstansi(idInstansi)));
         return "youngestOldestPegawai";
     }
-
-    // BONUS
 }

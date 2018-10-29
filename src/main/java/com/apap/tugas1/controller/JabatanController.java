@@ -1,7 +1,5 @@
 package com.apap.tugas1.controller;
 
-import java.util.List;
-
 import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.service.JabatanService;
 

@@ -33,16 +33,20 @@
                     <option th:each="prov: ${listOfProvinsi}" th:value="${prov.id}" th:text="${prov.nama}" th:selected="(${prov.id} == *{instansi.provinsi.id})"></option>
                 </select> <br>
                 
-                <label for="instansi" class="col-sm-2 col-form-label">Instansi</label>
-                <select type="text" name="instansi" id="instansi" class="form-control form-control-sm col-sm-10" th:selected="*{instansi}">
-                    <option th:each="inst: ${listOfInstansi}" th:value="${inst.id}" th:provinsi="${inst.provinsi.id}" th:text="${inst.nama}"></option>
+                <label for="instansi" class="col-sm-2 col-form-label" th:text="*{instansi.nama}">Instansi</label>
+                <select type="text" name="instansi" id="instansi" class="form-control form-control-sm col-sm-10" >
+                    <option th:each="inst: ${listOfInstansi}" th:value="${inst.id}" th:prov="${inst.provinsi.id}" th:text="${inst.nama}" th:selected="${inst.id} == *{instansi.id}"></option>
                 </select> <br>
 
                 <label for="jabatan" class="col-sm-2">Jabatan</label>
                 <div class="col-sm-10">
-                    <select th:each="jabatan, jabatanStat : *{jabatanPegawai}" type="text" th:field="*{jabatanPegawai[__${jabatanStat.index}__].jabatan}" class="form-control form-control-sm" th:selected="*{jabatanPegawai[__${jabatanStat.index}__].jabatan}">
-                        <option th:each="jab: ${listOfJabatan}" th:value="${jab.id}" th:text="${jab.nama}"></option>
-                    </select> <br>
+                    <div  th:each="jp, jabatanStat : *{jabatanPegawai}" th:field="*{jabatanPegawai[__${jabatanStat.index}__]}">
+                        <input type="hidden" th:field="*{jabatanPegawai[__${jabatanStat.index}__].id}" th:value="${jp.id}">
+                        <input type="hidden" th:field="*{jabatanPegawai[__${jabatanStat.index}__].pegawai}" th:value="*{id}">
+                        <select type="text" class="form-control form-control-sm" th:field="*{jabatanPegawai[__${jabatanStat.index}__].jabatan}" th:selected="*{jabatanPegawai[__${jabatanStat.index}__].jabatan}">
+                            <option th:each="jab: ${listOfJabatan}" th:value="${jab.id}" th:text="${jab.nama}"></option>
+                        </select> 
+                    </div> <br>
                 </div>
                 
                 <input type="hidden" name="id" th:value="${pegawai.id}" />
@@ -56,13 +60,13 @@
 </html>
 
 <script>
-    // $(document).ready(function () {
-        // $('#provinsi').on('click',function() {
-        //     $('#instansi').children('option').each(function(){
-        //         if($(this).attr('prov') !== $('#provinsi').val() ) $(this).css('display', 'none')
-        //         else $(this).css('display', 'initial')
-        //     }) 
-        // })
-        // $('#provinsi').trigger('click')
-    // });
+    $(document).ready(function () {
+        $('#provinsi').on('click', function() {
+            $('#instansi').children('option').each(function(){
+                if($(this).attr('prov') !== $('#provinsi').val() ) $(this).css('display', 'none')
+                else $(this).css('display', 'initial')
+            }) 
+        })
+        $('#provinsi').trigger('click')
+    });
 </script>

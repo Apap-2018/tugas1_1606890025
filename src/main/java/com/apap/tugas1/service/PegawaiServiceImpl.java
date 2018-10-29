@@ -8,6 +8,7 @@ import com.apap.tugas1.model.InstansiModel;
 import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.model.JabatanPegawaiModel;
 import com.apap.tugas1.model.PegawaiModel;
+import com.apap.tugas1.model.ProvinsiModel;
 import com.apap.tugas1.repository.JabatanPegawaiDb;
 import com.apap.tugas1.repository.PegawaiDb;
 
@@ -25,6 +26,27 @@ public class PegawaiServiceImpl implements PegawaiService {
     @Override
     public PegawaiModel getPegawai(String nip) {
         return pegawaiDb.findByNip(nip);
+    }
+
+    @Override
+    public List<PegawaiModel> getPegawaiByProvinsi(ProvinsiModel provinsi) {
+        List<PegawaiModel> result = new ArrayList<>();
+        List<PegawaiModel> query = pegawaiDb.findAll();
+        for (PegawaiModel pegawai : query) {
+            if (pegawai.getInstansi().getProvinsi().equals(provinsi)) {
+                result.add(pegawai);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<PegawaiModel> getPegawaiByProvinsiAndJabatan(ProvinsiModel provinsi, JabatanModel jabatan) {
+        List<PegawaiModel> provinsiResult = this.getPegawaiByProvinsi(provinsi);
+        List<PegawaiModel> jabatanResult = this.getPegawaiByJabatan(jabatan);
+
+        provinsiResult.retainAll(jabatanResult);
+        return provinsiResult;
     }
 
     @Override
@@ -65,13 +87,35 @@ public class PegawaiServiceImpl implements PegawaiService {
         }
     }
 
-
-    @Override
-    public boolean removePegawai(PegawaiModel pegawai) {
-        return false;
+    public void updatePegawai(PegawaiModel pegawai) {
+        pegawai.setNip(this.updateNip(pegawai));
+        pegawaiDb.save(pegawai);
+        
     }
 
     private String generateNip(PegawaiModel pegawai) {
+        String result = this.generateNipFirstFourteen(pegawai);
+        result += this.generateNipLastTwo(pegawai);
+
+        return result;
+    }
+
+    private String updateNip(PegawaiModel pegawai) {
+        String result = this.generateNipFirstFourteen(pegawai);
+        PegawaiModel pegawaiData = pegawaiDb.getOne(pegawai.getId());
+        if (pegawaiData.getInstansi().equals(pegawai.getInstansi()) &&
+            pegawaiData.getTanggalLahir().equals(pegawai.getTanggalLahir()) &&
+            pegawaiData.getTahunMasuk().equals(pegawai.getTahunMasuk()) ) {
+                
+            result += pegawaiData.getNip().substring(14);
+        }
+        else {
+            result += this.generateNipLastTwo(pegawai);
+        }
+        return result;
+    }
+
+    private String generateNipFirstFourteen(PegawaiModel pegawai) {
         String result = "";
         result += pegawai.getInstansi().getId();
         LocalDate date = pegawai.getTanggalLahir().toLocalDate();
@@ -79,10 +123,15 @@ public class PegawaiServiceImpl implements PegawaiService {
         result += date.getMonthValue() < 10 ? "0" + date.getMonthValue() : date.getMonthValue();
         result += date.getYear() < 10 ? "0" + date.getYear() : date.getYear() % 100;
         result += pegawai.getTahunMasuk();
-        int lastTwo = pegawaiDb.findByTanggalLahirAndTahunMasukOrderByTanggalLahirAscTahunMasukAsc(pegawai.getTanggalLahir(), pegawai.getTahunMasuk()).size();
-        result += lastTwo < 10 ? "0" + lastTwo : lastTwo;
-        
+
         return result;
+    }
+
+    private String generateNipLastTwo(PegawaiModel pegawai) {
+        List<PegawaiModel> query = pegawaiDb.findByInstansiAndTanggalLahirAndTahunMasukOrderByTanggalLahirAscTahunMasukAsc(pegawai.getInstansi(), pegawai.getTanggalLahir(), pegawai.getTahunMasuk());
+        int lastPegawaiInQuery = query.isEmpty() ? 1 : Integer.parseInt( query.get(query.size() - 1 ).getNip().substring(14) ) + 1;
+
+        return lastPegawaiInQuery < 10 ? "0" + lastPegawaiInQuery : Integer.toString(lastPegawaiInQuery);
     }
 
     @Override
@@ -94,4 +143,5 @@ public class PegawaiServiceImpl implements PegawaiService {
     public PegawaiModel getYoungestPegawai(InstansiModel instansi) {
         return pegawaiDb.findByInstansiOrderByTanggalLahirAsc(instansi).get(0);
     }
+
 }

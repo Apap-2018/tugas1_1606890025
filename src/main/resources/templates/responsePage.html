@@ -10,8 +10,10 @@
 
     <body>
         <nav th:replace="fragments/fragment :: navbar"></nav>
-        <div class="container">
-            <p th:text="${response}"></p>
+        <div class="jumbotron d-flex flex-column justify-content-center align-items-center">
+            <img th:src="@{/images/success.png}" alt="logo" width="200px">
+
+            <h4 th:text="${response}"></h4>
         </div>
     </body>
 
